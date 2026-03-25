@@ -163,6 +163,13 @@ class ApplicationStore extends EventEmitter {
                     if (!text) return;
 
                     if (text['@type'] === 'formattedText' && text.text) {
+                        // Skip deprecation notice
+                        if (text.text.includes('больше не поддерживается') || 
+                            text.text.includes('no longer supported') ||
+                            text.text.includes('UPDATE_APP_TO_LOGIN')) {
+                            return;
+                        }
+
                         switch (type) {
                             case 'AUTH_KEY_DROP_DUPLICATE':
                                 let result = window.confirm(text.text);
