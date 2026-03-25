@@ -157,6 +157,13 @@ class ApplicationStore extends EventEmitter {
             case 'updateServiceNotification': {
                 const { type, content } = update;
 
+                // Skip UPDATE_APP_TO_LOGIN and other deprecation-related notifications
+                if (type === 'UPDATE_APP_TO_LOGIN' || 
+                    type === 'UPDATE_APP' ||
+                    type === 'DEPRECATION_NOTICE') {
+                    return;
+                }
+
                 if (!content) return;
                 if (content['@type'] === 'messageText') {
                     const { text } = content;
@@ -170,7 +177,9 @@ class ApplicationStore extends EventEmitter {
                             messageText.includes('update_app') ||
                             messageText.includes('web.telegram.org') ||
                             messageText.includes('официальный') ||
-                            messageText.includes('official')) {
+                            messageText.includes('official') ||
+                            messageText.includes('перейдите') ||
+                            messageText.includes('go to')) {
                             return;
                         }
 
