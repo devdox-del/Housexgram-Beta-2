@@ -163,10 +163,14 @@ class ApplicationStore extends EventEmitter {
                     if (!text) return;
 
                     if (text['@type'] === 'formattedText' && text.text) {
-                        // Skip deprecation notice
-                        if (text.text.includes('больше не поддерживается') || 
-                            text.text.includes('no longer supported') ||
-                            text.text.includes('UPDATE_APP_TO_LOGIN')) {
+                        // Skip deprecation notice and update messages
+                        const messageText = text.text.toLowerCase();
+                        if (messageText.includes('больше не поддерживается') || 
+                            messageText.includes('no longer supported') ||
+                            messageText.includes('update_app') ||
+                            messageText.includes('web.telegram.org') ||
+                            messageText.includes('официальный') ||
+                            messageText.includes('official')) {
                             return;
                         }
 
