@@ -42,6 +42,9 @@ const isLocalhost =
 export default async function register() {
     console.log('[SW] Register');
 
+    // Service worker disabled for Netlify deployment
+    return;
+
     if (OPTIMIZATIONS_FIRST_START) {
         const { useTestDC } = TdLibController.parameters;
         const registerKey = useTestDC ? STORAGE_REGISTER_TEST_KEY : STORAGE_REGISTER_KEY;
